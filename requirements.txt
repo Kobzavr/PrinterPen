@@ -1,0 +1,8 @@
+PyQt5>=5.15
+pyserial>=3.5
+svgpathtools>=1.6
+lxml>=5.0
+opencv-python>=4.9
+numpy>=1.26
+Pillow>=10.0
+fonttools>=4.50

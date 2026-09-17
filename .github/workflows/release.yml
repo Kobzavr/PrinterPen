@@ -1,0 +1,48 @@
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    name: Build Windows Executable
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build with PyInstaller
+        run: |
+          pyinstaller --noconfirm --onedir --windowed --name "PrinterPen" --icon "logo.ico" --add-data "fonts;fonts" --add-data "resources;resources" --add-data "logo.ico;." main.py
+
+      - name: Package ZIP distribution
+        shell: pwsh
+        run: |
+          Compress-Archive -Path "dist/PrinterPen/*" -DestinationPath "dist/PrinterPen-windows-x64.zip"
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            dist/PrinterPen-windows-x64.zip
+          draft: false
+          prerelease: false
+          generate_release_notes: true
