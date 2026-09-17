@@ -6,7 +6,6 @@
 Transform your standard FDM 3D printer (running Marlin firmware) into a high-precision CNC pen plotter. **PrinterPen** gives you an intuitive desktop design canvas, powerful raster and vector processing, advanced area hatching, automatic travel path optimization, and direct USB serial streaming with real-time hardware synchronization.
 
 ![PrinterPen Interface](assets/screenshot.png)
----
 
 ## Key Features
 
