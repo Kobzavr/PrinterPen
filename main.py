@@ -38,8 +38,13 @@ def main():
     font_mgr.start_file_watcher()
 
     # Application icon
-    base_dir = os.path.dirname(os.path.abspath(__file__))
+    if getattr(sys, "frozen", False):
+        base_dir = getattr(sys, "_MEIPASS", os.path.dirname(sys.executable))
+    else:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
     logo_path = os.path.join(base_dir, "logo.ico")
+    if not os.path.exists(logo_path):
+        logo_path = os.path.join(os.path.dirname(sys.executable), "logo.ico")
     if os.path.exists(logo_path):
         app_icon = QIcon(logo_path)
         app.setWindowIcon(app_icon)

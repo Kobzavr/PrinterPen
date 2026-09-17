@@ -4,6 +4,9 @@ on:
   push:
     tags:
       - 'v*'
+      - '[0-9]+.*'
+  release:
+    types: [published]
   workflow_dispatch:
 
 permissions:
@@ -37,9 +40,15 @@ jobs:
         run: |
           Compress-Archive -Path "dist/PrinterPen/*" -DestinationPath "dist/PrinterPen-windows-x64.zip"
 
-      - name: Publish GitHub Release
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PrinterPen-windows-x64
+          path: dist/PrinterPen-windows-x64.zip
+
+      - name: Attach to GitHub Release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'release'
         with:
           files: |
             dist/PrinterPen-windows-x64.zip

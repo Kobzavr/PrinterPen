@@ -58,6 +58,7 @@ Transform your standard FDM 3D printer (running Marlin firmware) into a high-pre
   - **3D Printer**: Creality Ender-3 V3 SE
   - **Firmware**: Marlin v1.0.6
   - **Mainboard / Hardware**: `CR4NS200320C13` (BEP)
+  - **3D-Printable Pen Mount**: [Ender 3 V3 SE Pen Holder on Printables](https://www.printables.com/model/1845206-ender-3-v3-se-pen-holder) (custom bracket for quick mounting)
 
 ## Installation & Getting Started
 
